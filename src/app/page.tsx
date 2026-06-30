@@ -7,7 +7,7 @@ export default function LandPage() {
 
         <main >
           <form className="flex flex-col flex-wrap items-center justify-center w-screen h-screen gap-12">
-            <img src="/assets/dhsc.png" alt="logo" className="w-96"></img>
+            <a href="/ "><img src="/assets/dhsc.png" alt="logo" className="w-96"></img></a>
             <h1 className="text-5xl font-tw-kai font-bold">案件追蹤系統</h1>
 
             <div className="flex flex-col gap-4">
@@ -23,9 +23,9 @@ export default function LandPage() {
 
             </div>
 
-            <div className="flex flex-row gap-4 w-64 h-8">
-              <button type="submit" className="bg-green-500  rounded-sm hover:bg-green-600 w-32">註冊</button>
-              <button type="submit" className="bg-green-500  rounded-sm hover:bg-green-600 w-32">登入</button>
+            <div className="flex flex-row justify-center gap-12 w-92 h-8">
+              <button type="submit" className="bg-orange-300  rounded-sm hover:bg-orange-400 w-32">忘記密碼</button>
+              <button type="submit" className="bg-green-300  rounded-sm hover:bg-green-400 w-32">登入</button>
             </div>
 
           </form>
