@@ -1,9 +1,14 @@
-export default function Signin() {
+import { SigninForm } from "@/components/SigninForm";
+
+export default function SigninPage() {
   return (
-    <div> 
-      <h1> I'm Sign in Page </h1>
-      <a href="/" className="text-blue-600 dark:text-sky-400"> go to Landing Page </a>
-    </div>
-    
+    <main className="flex flex-col items-center pt-50 min-h-screen gap-12 font-tw-kai">
+      <div className="flex flex-col items-center gap-12">
+        <img src="/assets/dhsc.png" alt="logo" className="w-xl" />
+        <h1 className="text-5xl font-bold">案件追蹤系統</h1>
+      </div>
+
+      <SigninForm />
+    </main>
   );
 }
