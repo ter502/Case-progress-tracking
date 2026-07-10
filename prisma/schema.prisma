@@ -33,4 +33,90 @@ model User {
   status        Status   @default(ACTIVE)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  cases         Case[]        // ← 這個員工負責的案件
+  caseEvents    CaseEvent[]   // ← 這個員工做過的事件
+}
+
+enum CaseType {
+  REGULAR
+  TRANSFER_OUT
+  DATA_UPDATE
+  CHANGE_EMPLOYER
+  CHANGE_CAREGIVER
+}
+
+enum CaseProcess {
+  JOB_POSTING
+  RECRUIT_PERMIT
+  HIRE_PERMIT
+  RESIDENCE_CARD
+  LABOR_CONTRACT
+}
+
+enum CaseStatus {
+  PROCESSING
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum Country {
+  INDONESIA
+  VIETNAM
+  PHILIPPINES
+  THAILAND
+  OTHER
+}
+
+model Case {
+  id               String       @id @default(cuid())
+  caseNumber       String       @unique
+
+  caseType         CaseType
+
+  employer         String
+  employerPhone    String
+  employerContact  String?
+
+  applicantName    String?
+  country          Country
+
+  cause            String
+  currentProcess   CaseProcess?
+  status           CaseStatus   @default(PROCESSING)
+
+  assigneeId       String
+  assignee         User         @relation(fields: [assigneeId], references: [id])
+
+  nextActionDate   DateTime?
+  nextActionNote   String?
+  notes            String?
+
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  closedAt         DateTime?
+
+  events           CaseEvent[]
+
+  @@index([assigneeId])
+  @@index([status])
+  @@index([nextActionDate])
+}
+
+model CaseEvent {
+  id         String       @id @default(cuid())
+  caseId     String
+  case       Case         @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  process    CaseProcess?
+  action     String
+  note       String?
+
+  actorId    String
+  actor      User         @relation(fields: [actorId], references: [id])
+
+  createdAt  DateTime     @default(now())
+
+  @@index([caseId])
+  @@index([createdAt])
 }
